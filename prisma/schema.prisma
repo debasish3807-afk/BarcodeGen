@@ -1,0 +1,354 @@
+// ======================
+// Prisma Schema - BarcodeGen Enterprise
+// ======================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// === Authentication & Authorization ===
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String
+  avatar        String?
+  roleId        String
+  role          Role      @relation(fields: [roleId], references: [id])
+  isActive      Boolean   @default(true)
+  emailVerified Boolean   @default(false)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  barcodes      GeneratedBarcode[]
+  qrcodes       GeneratedQRCode[]
+  batchJobs     BatchJob[]
+  templates     Template[]
+  favorites     Favorite[]
+  history       History[]
+  apiKeys       ApiKey[]
+  payments      Payment[]
+  activityLogs  ActivityLog[]
+
+  @@index([email])
+  @@index([roleId])
+}
+
+model Role {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  permissions Permission[]
+  users       User[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Permission {
+  id       String @id @default(cuid())
+  name     String @unique
+  resource String
+  action   String
+  roleId   String
+  role     Role   @relation(fields: [roleId], references: [id])
+
+  @@index([roleId])
+}
+
+// === Generated Content ===
+
+model GeneratedBarcode {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  value     String
+  format    String
+  options   Json
+  imageUrl  String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([format])
+  @@index([createdAt])
+}
+
+model GeneratedQRCode {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  value     String
+  type      String
+  options   Json
+  imageUrl  String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model BatchJob {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  mode        String
+  format      String
+  totalItems  Int
+  successCount Int     @default(0)
+  failedCount  Int    @default(0)
+  status      String   @default("pending")
+  config      Json
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([userId])
+  @@index([status])
+}
+
+// === Templates & Favorites ===
+
+model Template {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  name        String
+  description String?
+  category    String
+  type        String
+  config      Json
+  isPublic    Boolean  @default(false)
+  usageCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([isPublic])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  name      String
+  type      String
+  config    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model History {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String
+  format    String
+  value     String
+  preview   String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// === Blog & Content ===
+
+model Blog {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  author      String
+  coverImage  String?
+  tags        String[]
+  readTime    String?
+  isPublished Boolean  @default(false)
+  views       Int      @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([isPublished])
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String @unique
+  slug        String @unique
+  description String?
+  blogs       Blog[]
+  createdAt   DateTime @default(now())
+
+  @@index([slug])
+}
+
+// === SEO & Language ===
+
+model SeoMeta {
+  id          String  @id @default(cuid())
+  path        String  @unique
+  title       String
+  description String
+  keywords    String?
+  ogImage     String?
+  canonical   String?
+  noIndex     Boolean @default(false)
+  schema      Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([path])
+}
+
+model Language {
+  id         String  @id @default(cuid())
+  code       String  @unique
+  name       String
+  nativeName String
+  isActive   Boolean @default(true)
+  isRtl      Boolean @default(false)
+  translations Json?
+  createdAt  DateTime @default(now())
+}
+
+// === Analytics ===
+
+model Analytics {
+  id        String   @id @default(cuid())
+  event     String
+  path      String?
+  userId    String?
+  metadata  Json?
+  ip        String?
+  userAgent String?
+  country   String?
+  createdAt DateTime @default(now())
+
+  @@index([event])
+  @@index([createdAt])
+  @@index([userId])
+}
+
+// === Communication ===
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("unread")
+  repliedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  isActive     Boolean  @default(true)
+  subscribedAt DateTime @default(now())
+  unsubscribedAt DateTime?
+
+  @@index([email])
+  @@index([isActive])
+}
+
+// === API & Payments ===
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  key       String   @unique
+  name      String
+  scopes    String[]
+  isActive  Boolean  @default(true)
+  lastUsedAt DateTime?
+  expiresAt DateTime?
+  requests  Int      @default(0)
+  rateLimit Int      @default(100)
+  createdAt DateTime @default(now())
+
+  @@index([key])
+  @@index([userId])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float
+  currency    String   @default("USD")
+  status      String   @default("pending")
+  provider    String
+  providerId  String?
+  plan        String?
+  createdAt   DateTime @default(now())
+  invoice     Invoice?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Invoice {
+  id        String   @id @default(cuid())
+  paymentId String   @unique
+  payment   Payment  @relation(fields: [paymentId], references: [id])
+  number    String   @unique
+  amount    Float
+  tax       Float    @default(0)
+  total     Float
+  status    String   @default("draft")
+  issuedAt  DateTime @default(now())
+  dueAt     DateTime?
+  paidAt    DateTime?
+
+  @@index([number])
+}
+
+// === System ===
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  group     String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([group])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  resource  String
+  resourceId String?
+  metadata  Json?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}

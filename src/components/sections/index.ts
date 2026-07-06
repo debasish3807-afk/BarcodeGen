@@ -1,0 +1,11 @@
+export { HeroSection } from "./hero-section";
+export { StatsSection } from "./stats-section";
+export { FeaturesSection } from "./features-section";
+export { WhyChooseSection } from "./why-choose-section";
+export { BarcodeTypesSection } from "./barcode-types-section";
+export { QRTypesSection } from "./qr-types-section";
+export { HowItWorksSection } from "./how-it-works-section";
+export { TestimonialsSection } from "./testimonials-section";
+export { BlogSection } from "./blog-section";
+export { FAQSection } from "./faq-section";
+export { CTASection } from "./cta-section";
