@@ -2,133 +2,141 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles, ScanBarcode, QrCode } from "lucide-react";
+import { ArrowRight, Sparkles, ScanBarcode, QrCode, Check, Zap, Shield, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
 
 // ======================
-// Hero Section
+// Hero Section - Premium SaaS Design
 // ======================
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-white dark:bg-surface-950 pt-20">
-      {/* Background Gradient */}
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden pt-20">
+      {/* Animated Mesh Background */}
+      <div className="absolute inset-0 gradient-mesh" />
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-primary-100/40 via-accent-50/20 to-transparent dark:from-primary-950/30 dark:via-accent-950/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-secondary-100/30 to-transparent dark:from-secondary-950/20 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-primary-400/[0.07] rounded-full blur-[120px] animate-[float_8s_ease-in-out_infinite]" />
+        <div className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-accent-400/[0.06] rounded-full blur-[100px] animate-[float_10s_ease-in-out_infinite_2s]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary-200/[0.04] to-accent-200/[0.04] rounded-full blur-[80px]" />
       </div>
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,black_70%,transparent_110%)]" />
 
       <Container className="relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center lg:text-left"
+            transition={{ duration: 0.5 }}
           >
-            <Badge variant="primary" size="lg" className="mb-6">
-              <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-              Free & Professional
-            </Badge>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-surface-900 dark:text-white leading-tight text-balance">
-              Generate{" "}
-              <span className="gradient-text">Barcodes</span>{" "}
-              &{" "}
-              <span className="gradient-text">QR Codes</span>{" "}
-              Instantly
-            </h1>
-
-            <p className="mt-6 text-lg sm:text-xl text-surface-600 dark:text-surface-400 max-w-xl mx-auto lg:mx-0 text-balance">
-              The most powerful free barcode generator supporting 30+ formats. Create, customize, and download professional barcodes in seconds.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link href="/barcode-generator">
-                <Button size="xl" rightIcon={<ArrowRight className="h-5 w-5" />}>
-                  Generate Barcode
-                </Button>
-              </Link>
-              <Link href="/qr-generator">
-                <Button size="xl" variant="outline" rightIcon={<ArrowRight className="h-5 w-5" />}>
-                  Create QR Code
-                </Button>
-              </Link>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="mt-8 flex items-center gap-6 justify-center lg:justify-start text-sm text-surface-500 dark:text-surface-400">
-              <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                No registration
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                100% Free
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                High quality
-              </span>
-            </div>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-950/40 border border-primary-200/60 dark:border-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-8">
+              <Sparkles className="h-4 w-4" />
+              Free & Open — No Signup Required
+              <ArrowRight className="h-3.5 w-3.5" />
+            </span>
           </motion.div>
 
-          {/* Right - Live Preview Placeholder */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="relative"
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-bold tracking-tight text-surface-900 dark:text-white leading-[1.08] text-balance"
           >
-            <div className="relative bg-white dark:bg-surface-900 rounded-3xl border border-surface-200 dark:border-surface-800 shadow-2xl shadow-primary-500/5 p-8 md:p-12">
-              {/* Preview Header */}
-              <div className="flex items-center gap-3 mb-8">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                </div>
-                <span className="text-xs text-surface-400 font-medium">Live Preview</span>
-              </div>
+            Generate Professional{" "}
+            <span className="gradient-text">Barcodes</span> &{" "}
+            <span className="gradient-text">QR Codes</span>
+          </motion.h1>
 
-              {/* Barcode Preview Placeholder */}
-              <div className="space-y-6">
-                <div className="flex items-center justify-center p-6 bg-surface-50 dark:bg-surface-800 rounded-2xl">
-                  <ScanBarcode className="h-24 w-24 text-primary-600/60 dark:text-primary-400/60" />
-                </div>
-                <div className="flex items-center justify-center p-6 bg-surface-50 dark:bg-surface-800 rounded-2xl">
-                  <QrCode className="h-24 w-24 text-accent-600/60 dark:text-accent-400/60" />
-                </div>
-              </div>
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-6 text-lg sm:text-xl text-surface-500 dark:text-surface-400 max-w-2xl mx-auto leading-relaxed"
+          >
+            The most powerful barcode platform supporting 30+ formats. Create, customize, and download production-ready barcodes and QR codes in seconds.
+          </motion.p>
 
-              {/* Floating elements */}
-              <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 bg-primary-600 text-white p-3 rounded-2xl shadow-lg"
-              >
-                <ScanBarcode className="h-6 w-6" />
-              </motion.div>
-              <motion.div
-                animate={{ y: [5, -5, 5] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-4 -left-4 bg-accent-600 text-white p-3 rounded-2xl shadow-lg"
-              >
-                <QrCode className="h-6 w-6" />
-              </motion.div>
-            </div>
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link href="/barcode-generator">
+              <Button size="xl" className="rounded-full px-8 shadow-lg shadow-primary-600/20" rightIcon={<ArrowRight className="h-5 w-5" />}>
+                Generate Barcode
+              </Button>
+            </Link>
+            <Link href="/qr-generator">
+              <Button size="xl" variant="outline" className="rounded-full px-8" rightIcon={<ArrowRight className="h-5 w-5" />}>
+                Create QR Code
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-surface-500 dark:text-surface-400"
+          >
+            {[
+              { icon: Check, text: "No registration needed" },
+              { icon: Zap, text: "Instant generation" },
+              { icon: Shield, text: "Privacy first" },
+              { icon: Download, text: "High-res downloads" },
+            ].map(({ icon: Icon, text }) => (
+              <span key={text} className="flex items-center gap-2">
+                <Icon className="h-4 w-4 text-primary-500" />
+                {text}
+              </span>
+            ))}
           </motion.div>
         </div>
+
+        {/* Hero Visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-16 relative max-w-5xl mx-auto"
+        >
+          <div className="relative glass-card p-2 rounded-3xl">
+            <div className="bg-surface-50 dark:bg-surface-900 rounded-2xl p-6 md:p-10">
+              {/* Window chrome */}
+              <div className="flex items-center gap-2 mb-6">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-400/80" />
+                </div>
+                <div className="flex-1 h-7 bg-surface-200/60 dark:bg-surface-700/60 rounded-lg mx-12" />
+              </div>
+              {/* Content Grid */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="flex items-center justify-center p-8 bg-white dark:bg-surface-800 rounded-xl border border-surface-200/60 dark:border-surface-700/60">
+                  <ScanBarcode className="h-20 w-20 text-primary-500/70" strokeWidth={1.5} />
+                </div>
+                <div className="flex items-center justify-center p-8 bg-white dark:bg-surface-800 rounded-xl border border-surface-200/60 dark:border-surface-700/60">
+                  <QrCode className="h-20 w-20 text-accent-500/70" strokeWidth={1.5} />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Floating badges */}
+          <motion.div animate={{ y: [-4, 4, -4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-4 -right-2 md:right-8 glass px-4 py-2 rounded-full text-xs font-semibold text-primary-700 dark:text-primary-300">
+            <Zap className="h-3.5 w-3.5 inline mr-1.5" />30+ Formats
+          </motion.div>
+          <motion.div animate={{ y: [4, -4, 4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} className="absolute -bottom-3 -left-2 md:left-8 glass px-4 py-2 rounded-full text-xs font-semibold text-accent-700 dark:text-accent-300">
+            <Download className="h-3.5 w-3.5 inline mr-1.5" />PNG • SVG • PDF
+          </motion.div>
+        </motion.div>
       </Container>
     </section>
   );

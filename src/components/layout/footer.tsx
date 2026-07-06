@@ -23,7 +23,7 @@ export function Footer() {
 
   return (
     <footer
-      className="bg-surface-50 dark:bg-surface-900 border-t border-surface-200 dark:border-surface-800"
+      className="bg-surface-50/50 dark:bg-surface-900/50 border-t border-surface-200/60 dark:border-surface-800/40"
       role="contentinfo"
       aria-label="Site footer"
     >
