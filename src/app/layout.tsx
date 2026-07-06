@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_CONFIG.author }],
   creator: SITE_CONFIG.name,
   publisher: SITE_CONFIG.name,
+  verification: {
+    google: "a_wCLLbz3vdOT35XAGcjGXt-27MvxRCfWYBGML4onEQ",
+  },
   robots: {
     index: true,
     follow: true,
