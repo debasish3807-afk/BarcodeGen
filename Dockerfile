@@ -7,7 +7,6 @@ FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --only=production && cp -R node_modules /prod_modules
 RUN npm ci
 
 # Stage 2: Build
@@ -15,8 +14,10 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG DATABASE_URL="postgresql://user:pass@localhost:5432/barcodegen"
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV DATABASE_URL=${DATABASE_URL}
 RUN npx prisma generate 2>/dev/null || true
 RUN npm run build
 
