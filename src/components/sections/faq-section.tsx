@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // ======================
-// FAQ Section
+// FAQ - Premium Animated Accordion
 // ======================
 
 function FAQItem({ question, answer, isOpen, onToggle }: {
@@ -21,22 +21,26 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
   onToggle: () => void;
 }) {
   return (
-    <div className="border border-surface-200 dark:border-surface-800 rounded-xl overflow-hidden">
+    <div className={cn(
+      "rounded-2xl border transition-all duration-300",
+      isOpen
+        ? "border-primary-200/60 dark:border-primary-800/40 bg-primary-50/30 dark:bg-primary-950/20 shadow-sm"
+        : "border-surface-200/70 dark:border-surface-700/50 bg-white dark:bg-surface-900/60 hover:border-surface-300 dark:hover:border-surface-600"
+    )}>
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-surface-50 dark:hover:bg-surface-900/50 transition-colors"
+        className="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-2xl"
         aria-expanded={isOpen}
       >
-        <span className="text-base font-semibold text-surface-900 dark:text-white">
+        <span className="text-[15px] font-semibold text-surface-900 dark:text-white pr-4">
           {question}
         </span>
-        <ChevronDown
-          className={cn(
-            "h-5 w-5 flex-shrink-0 text-surface-400 transition-transform duration-300",
-            isOpen && "rotate-180"
-          )}
-          aria-hidden="true"
-        />
+        <div className={cn(
+          "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300",
+          isOpen ? "bg-primary-100 dark:bg-primary-900/50 rotate-180" : "bg-surface-100 dark:bg-surface-800"
+        )}>
+          <ChevronDown className={cn("h-4 w-4 transition-colors", isOpen ? "text-primary-600 dark:text-primary-400" : "text-surface-400")} />
+        </div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -44,9 +48,10 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
           >
-            <div className="px-5 pb-5">
+            <div className="px-5 md:px-6 pb-5 md:pb-6">
               <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed">
                 {answer}
               </p>
@@ -68,17 +73,17 @@ export function FAQSection() {
         <SectionHeader
           badge="FAQ"
           title="Frequently Asked Questions"
-          subtitle="Quick answers to the most common questions about BarcodeGen."
+          subtitle="Quick answers to common questions about BarcodeGen."
         />
 
         <div className="space-y-3">
           {displayFaqs.map((faq, index) => (
             <motion.div
               key={faq.id}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
             >
               <FAQItem
                 question={faq.question}
@@ -90,13 +95,18 @@ export function FAQSection() {
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-10"
+        >
           <Link href="/faq">
-            <Button variant="outline" rightIcon={<ArrowRight className="h-4 w-4" />}>
+            <Button variant="outline" className="rounded-full" rightIcon={<ArrowRight className="h-4 w-4" />}>
               View All FAQs
             </Button>
           </Link>
-        </div>
+        </motion.div>
       </Container>
     </Section>
   );
