@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 
 // ======================
-// Navbar Component
+// Navbar Component - Premium v2.0
 // ======================
 
 export function Navbar() {
@@ -82,38 +82,43 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-white/80 dark:bg-surface-950/80 backdrop-blur-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] border-b border-surface-200/40 dark:border-surface-800/40"
+          ? "bg-white/70 dark:bg-surface-950/70 backdrop-blur-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_24px_rgba(0,0,0,0.02)] border-b border-surface-200/30 dark:border-surface-800/30"
           : "bg-transparent"
       )}
     >
       <Container>
         <nav
-          className="flex items-center justify-between h-16 md:h-18"
+          className="flex items-center justify-between h-20"
           aria-label="Main navigation"
         >
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-xl text-surface-900 dark:text-white hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2.5 group"
             aria-label={`${SITE_CONFIG.name} - Home`}
           >
-            <ScanBarcode className="h-7 w-7 text-primary-600" />
-            <span className="hidden sm:inline">{SITE_CONFIG.name}</span>
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <ScanBarcode className="relative h-8 w-8 text-primary-600 dark:text-primary-400 transition-transform duration-300 group-hover:scale-110" />
+            </div>
+            <span className="hidden sm:inline text-xl font-bold tracking-tight text-surface-900 dark:text-white">
+              {SITE_CONFIG.name}
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                  "px-4 py-2.5 text-[15px] font-medium rounded-xl transition-all duration-200",
                   pathname === item.href
-                    ? "text-primary-600 bg-primary-50 dark:text-primary-400 dark:bg-primary-950/50"
-                    : "text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800"
+                    ? "text-primary-600 bg-primary-50/80 dark:text-primary-400 dark:bg-primary-950/50"
+                    : "text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60"
                 )}
                 aria-current={pathname === item.href ? "page" : undefined}
               >
@@ -123,16 +128,16 @@ export function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {/* Search */}
             <div ref={searchRef} className="relative">
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-lg text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800 transition-colors"
+                className="p-2.5 rounded-xl text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200"
                 aria-label="Toggle search"
                 aria-expanded={isSearchOpen}
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-[18px] w-[18px]" />
               </button>
               <AnimatePresence>
                 {isSearchOpen && (
@@ -143,11 +148,11 @@ export function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute right-0 top-full mt-2 w-72 sm:w-80"
                   >
-                    <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 shadow-xl p-3">
+                    <div className="bg-white/90 dark:bg-surface-900/90 backdrop-blur-2xl rounded-2xl border border-surface-200/60 dark:border-surface-700/60 shadow-2xl p-3">
                       <input
                         type="search"
                         placeholder="Search barcodes, guides..."
-                        className="w-full px-4 py-2.5 rounded-lg border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-sm"
+                        className="w-full px-4 py-3 rounded-xl border border-surface-200/60 dark:border-surface-700/60 bg-surface-50/80 dark:bg-surface-800/80 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 text-sm"
                         autoFocus
                         aria-label="Search"
                       />
@@ -160,24 +165,24 @@ export function Navbar() {
             {/* Favorites */}
             <Link
               href="/favorites"
-              className="p-2 rounded-lg text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800 transition-colors hidden sm:flex"
+              className="p-2.5 rounded-xl text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200 hidden sm:flex"
               aria-label="Favorites"
             >
-              <Heart className="h-5 w-5" />
+              <Heart className="h-[18px] w-[18px]" />
             </Link>
 
             {/* Language Selector */}
             <div ref={langRef} className="relative hidden sm:block">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-1 p-2 rounded-lg text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800 transition-colors"
+                className="flex items-center gap-1.5 p-2.5 rounded-xl text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200"
                 aria-label="Select language"
                 aria-expanded={isLangOpen}
                 aria-haspopup="listbox"
               >
-                <Globe className="h-5 w-5" />
-                <span className="text-xs font-medium uppercase">{currentLang}</span>
-                <ChevronDown className={cn("h-3 w-3 transition-transform", isLangOpen && "rotate-180")} />
+                <Globe className="h-[18px] w-[18px]" />
+                <span className="text-xs font-semibold uppercase">{currentLang}</span>
+                <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", isLangOpen && "rotate-180")} />
               </button>
               <AnimatePresence>
                 {isLangOpen && (
@@ -190,7 +195,7 @@ export function Navbar() {
                     role="listbox"
                     aria-label="Language selection"
                   >
-                    <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 shadow-xl p-2">
+                    <div className="bg-white/90 dark:bg-surface-900/90 backdrop-blur-2xl rounded-2xl border border-surface-200/60 dark:border-surface-700/60 shadow-2xl p-2">
                       {LANGUAGES.map((lang) => (
                         <button
                           key={lang.code}
@@ -199,10 +204,10 @@ export function Navbar() {
                             setIsLangOpen(false);
                           }}
                           className={cn(
-                            "w-full px-3 py-2 text-left text-sm rounded-lg transition-colors",
+                            "w-full px-3.5 py-2.5 text-left text-sm rounded-xl transition-all duration-200",
                             currentLang === lang.code
-                              ? "bg-primary-50 text-primary-600 dark:bg-primary-950/50 dark:text-primary-400"
-                              : "text-surface-700 hover:bg-surface-100 dark:text-surface-300 dark:hover:bg-surface-800"
+                              ? "bg-primary-50/80 text-primary-600 dark:bg-primary-950/50 dark:text-primary-400 font-medium"
+                              : "text-surface-700 hover:bg-surface-100/80 dark:text-surface-300 dark:hover:bg-surface-800/60"
                           )}
                           role="option"
                           aria-selected={currentLang === lang.code}
@@ -221,17 +226,17 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800 transition-colors"
+                className="p-2.5 rounded-xl text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200"
                 aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
               >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                {isDark ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
               </button>
             )}
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-surface-600 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800 transition-colors lg:hidden"
+              className="p-2.5 rounded-xl text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200 lg:hidden"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -251,19 +256,19 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden border-t border-surface-200 dark:border-surface-800 bg-white dark:bg-surface-950"
+            className="lg:hidden overflow-hidden border-t border-surface-200/30 dark:border-surface-800/30 bg-white/90 dark:bg-surface-950/90 backdrop-blur-2xl"
           >
             <Container>
-              <div className="py-4 space-y-1">
+              <div className="py-6 space-y-1.5">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "block px-4 py-3 rounded-xl text-base font-medium transition-colors",
+                      "block px-5 py-3.5 rounded-2xl text-[16px] font-medium transition-all duration-200",
                       pathname === item.href
-                        ? "text-primary-600 bg-primary-50 dark:text-primary-400 dark:bg-primary-950/50"
-                        : "text-surface-700 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-300 dark:hover:text-white dark:hover:bg-surface-800"
+                        ? "text-primary-600 bg-primary-50/80 dark:text-primary-400 dark:bg-primary-950/50"
+                        : "text-surface-700 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-300 dark:hover:text-white dark:hover:bg-surface-800/60"
                     )}
                     aria-current={pathname === item.href ? "page" : undefined}
                   >
@@ -272,24 +277,24 @@ export function Navbar() {
                 ))}
 
                 {/* Mobile-only items */}
-                <div className="pt-4 mt-4 border-t border-surface-200 dark:border-surface-800">
+                <div className="pt-5 mt-5 border-t border-surface-200/40 dark:border-surface-800/40">
                   <Link
                     href="/favorites"
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-surface-700 hover:text-surface-900 hover:bg-surface-100 dark:text-surface-300 dark:hover:text-white dark:hover:bg-surface-800 transition-colors"
+                    className="flex items-center gap-3 px-5 py-3.5 rounded-2xl text-[16px] font-medium text-surface-700 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-300 dark:hover:text-white dark:hover:bg-surface-800/60 transition-all duration-200"
                   >
                     <Heart className="h-5 w-5" />
                     Favorites
                   </Link>
 
                   {/* Mobile Language Selector */}
-                  <div className="px-4 py-3">
-                    <label className="block text-sm font-medium text-surface-500 dark:text-surface-400 mb-2">
+                  <div className="px-5 py-3.5">
+                    <label className="block text-sm font-semibold text-surface-500 dark:text-surface-400 mb-2.5">
                       Language
                     </label>
                     <select
                       value={currentLang}
                       onChange={(e) => setCurrentLang(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm"
+                      className="w-full px-4 py-3 rounded-xl border border-surface-200/60 dark:border-surface-700/60 bg-surface-50/80 dark:bg-surface-800/80 text-surface-900 dark:text-surface-100 text-[15px] font-medium"
                       aria-label="Select language"
                     >
                       {LANGUAGES.map((lang) => (

@@ -19,10 +19,10 @@ const variantClasses = {
 };
 
 const spacingClasses = {
-  sm: "py-12 md:py-16",
-  md: "py-16 md:py-20",
-  lg: "py-20 md:py-28",
-  xl: "py-24 md:py-32",
+  sm: "py-14 md:py-18",
+  md: "py-18 md:py-24",
+  lg: "py-22 md:py-32",
+  xl: "py-28 md:py-40",
 };
 
 export const Section = forwardRef<HTMLElement, SectionProps>(
@@ -61,17 +61,17 @@ export function SectionHeader({
   className,
 }: SectionHeaderProps) {
   return (
-    <div className={cn("mb-12 md:mb-16", centered && "text-center", className)}>
+    <div className={cn("mb-14 md:mb-20", centered && "text-center", className)}>
       {badge && (
-        <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 mb-5 text-xs font-semibold uppercase tracking-wider text-primary-600 bg-primary-50/80 dark:bg-primary-950/40 dark:text-primary-400 rounded-full border border-primary-200/60 dark:border-primary-800/40">
+        <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-bold uppercase tracking-widest text-primary-600 bg-primary-50/80 dark:bg-primary-950/40 dark:text-primary-400 rounded-full border border-primary-200/60 dark:border-primary-800/40">
           {badge}
         </span>
       )}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-surface-900 dark:text-white text-balance">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-surface-900 dark:text-white text-balance">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-lg text-surface-500 dark:text-surface-400 max-w-2xl mx-auto text-balance leading-relaxed">
+        <p className="mt-5 text-lg md:text-xl text-surface-500 dark:text-surface-400 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
           {subtitle}
         </p>
       )}
