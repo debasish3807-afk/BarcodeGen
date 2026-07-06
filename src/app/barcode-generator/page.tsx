@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { BarcodeGeneratorClient } from "./_components/barcode-generator-client";
-import { Section, SectionHeader } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
 
 export const metadata: Metadata = {
   title: "Barcode Generator",
@@ -19,23 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function BarcodeGeneratorPage() {
-  return (
-    <>
-      {/* Header */}
-      <Section variant="muted" spacing="sm" className="pt-24 pb-6">
-        <Container>
-          <SectionHeader
-            badge="Generator"
-            title="Barcode Generator"
-            subtitle="Create professional barcodes in 11 formats. Customize, preview in real-time, and download in multiple formats — completely free."
-          />
-        </Container>
-      </Section>
-
-      {/* Generator */}
-      <Section variant="default" spacing="md">
-        <BarcodeGeneratorClient />
-      </Section>
-    </>
-  );
+  return <BarcodeGeneratorClient />;
 }
