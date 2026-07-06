@@ -115,14 +115,12 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Google AdSense Placeholder */}
-        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
-            crossOrigin="anonymous"
-          />
-        )}
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9635446503329909"
+          crossOrigin="anonymous"
+        />
 
         {/* Microsoft Clarity Placeholder */}
         {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
