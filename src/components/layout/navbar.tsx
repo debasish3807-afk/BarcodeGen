@@ -236,6 +236,11 @@ export function Navbar() {
               </button>
             )}
 
+            {/* Sign In CTA (desktop) */}
+            <Link href="/sign-in" className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-semibold hover:shadow-md hover:shadow-primary-600/25 transition-all">
+              Sign In
+            </Link>
+
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}

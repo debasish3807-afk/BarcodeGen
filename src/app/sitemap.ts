@@ -24,6 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guides/code128",
     "/guides/gs1",
     "/help",
+    "/sign-in",
+    "/sign-up",
     "/barcode-guide",
     "/qr-guide",
     "/blog",
