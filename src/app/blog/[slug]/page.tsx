@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Clock, Calendar, Eye, Tag, ExternalLink, ScanBarcode, BookOpen } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Calendar, Tag, ExternalLink, ScanBarcode, BookOpen } from "lucide-react";
 import { BLOG_POSTS_FULL, getBlogPostBySlug, getRelatedPosts } from "../_lib/blog-data";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -52,7 +52,6 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
             <span className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" />{post.publishedAt}</span>
             <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />2.4K views</span>
           </div>
         </Container>
       </div>

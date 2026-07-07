@@ -30,10 +30,11 @@ export function ActionsToolbar({
   options,
   validation,
   svgRef,
-  onGenerate,
+  onGenerate: _onGenerate,
   onReset,
 }: ActionsToolbarProps) {
-  void onGenerate; // Preserved for API compatibility
+  // _onGenerate kept for API compatibility - download serves as generation trigger
+  void _onGenerate;
   const [copyImageState, setCopyImageState] = useState<CopyState>("idle");
   const [copySvgState, setCopySvgState] = useState<CopyState>("idle");
   const [isExporting, setIsExporting] = useState(false);

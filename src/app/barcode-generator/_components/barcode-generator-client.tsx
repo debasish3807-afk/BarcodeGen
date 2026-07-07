@@ -76,20 +76,16 @@ export function BarcodeGeneratorClient() {
             </button>
 
             {/* Sidebar card */}
-            <AnimatePresence>
-              {(showMobileSidebar || typeof window !== "undefined") && (
-                <div className={cn(
-                  "lg:block lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto",
-                  "bg-white dark:bg-surface-900 rounded-[20px] border border-surface-200/80 dark:border-surface-800/80 p-5 shadow-sm",
-                  showMobileSidebar ? "block mb-6" : "hidden"
-                )}>
-                  <FormatSelector
-                    selectedFormat={options.format}
-                    onFormatChange={(f) => { setFormat(f); setShowMobileSidebar(false); }}
-                  />
-                </div>
-              )}
-            </AnimatePresence>
+            <div className={cn(
+              "lg:block lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto",
+              "bg-white dark:bg-surface-900 rounded-[20px] border border-surface-200/80 dark:border-surface-800/80 p-5 shadow-sm",
+              showMobileSidebar ? "block mb-6" : "hidden"
+            )}>
+              <FormatSelector
+                selectedFormat={options.format}
+                onFormatChange={(f) => { setFormat(f); setShowMobileSidebar(false); }}
+              />
+            </div>
           </aside>
 
           {/* ===== CENTER: Input + Advanced (Flexible) ===== */}
