@@ -17,5 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function BarcodeGeneratorPage() {
-  return <BarcodeGeneratorClient />;
+  return (
+    <section className="pt-24 pb-16">
+      <BarcodeGeneratorClient />
+    </section>
+  );
 }
