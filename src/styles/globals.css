@@ -442,3 +442,45 @@
     @apply opacity-100;
   }
 }
+
+
+
+/* ======================
+   Final Polish Utilities
+   ====================== */
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 99px;
+  }
+
+  .prose-custom p {
+    @apply text-[17px] leading-[1.85] text-surface-600 dark:text-surface-400;
+  }
+
+  .prose-custom h2 {
+    @apply text-xl font-bold text-surface-900 dark:text-white mt-10 mb-4;
+  }
+
+  .prose-custom h3 {
+    @apply text-lg font-bold text-surface-900 dark:text-white mt-8 mb-3;
+  }
+
+  .prose-custom ul {
+    @apply list-disc pl-6 space-y-2 my-4 text-surface-600 dark:text-surface-400;
+  }
+
+  .prose-custom blockquote {
+    @apply border-l-4 border-primary-400 pl-4 italic text-surface-500 dark:text-surface-400 my-6;
+  }
+}
