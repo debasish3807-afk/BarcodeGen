@@ -115,14 +115,17 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-4 py-2.5 text-[15px] font-medium rounded-xl transition-all duration-200",
+                  "relative px-4 py-2.5 text-[15px] font-medium rounded-xl transition-all duration-200",
                   pathname === item.href
-                    ? "text-primary-600 bg-primary-50/80 dark:text-primary-400 dark:bg-primary-950/50"
-                    : "text-surface-600 hover:text-surface-900 hover:bg-surface-100/80 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/60"
+                    ? "text-primary-600 dark:text-primary-400"
+                    : "text-surface-600 hover:text-surface-900 hover:bg-surface-100/60 dark:text-surface-400 dark:hover:text-white dark:hover:bg-surface-800/40"
                 )}
                 aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}
+                {pathname === item.href && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-primary-500 rounded-full" />
+                )}
               </Link>
             ))}
           </div>

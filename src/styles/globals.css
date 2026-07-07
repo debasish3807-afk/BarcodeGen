@@ -484,3 +484,70 @@
     @apply border-l-4 border-primary-400 pl-4 italic text-surface-500 dark:text-surface-400 my-6;
   }
 }
+
+
+
+/* ======================
+   V11 Ultra Polish
+   ====================== */
+
+@layer utilities {
+  /* Card hover - consistent across all cards */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+  }
+
+  :is(.dark) .card-hover:hover {
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3), 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Button press animation */
+  .btn-press {
+    @apply transition-transform duration-100;
+  }
+  .btn-press:active {
+    transform: scale(0.97);
+  }
+
+  /* Premium focus ring */
+  .focus-premium:focus-visible {
+    @apply outline-none ring-2 ring-primary-500/40 ring-offset-2 ring-offset-white dark:ring-offset-surface-950;
+  }
+
+  /* Stagger animation helper */
+  .animate-stagger > * {
+    animation: fade-in 0.4s ease-out both;
+  }
+  .animate-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .animate-stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .animate-stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .animate-stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .animate-stagger > *:nth-child(5) { animation-delay: 200ms; }
+  .animate-stagger > *:nth-child(6) { animation-delay: 250ms; }
+
+  /* Smooth underline animation for links */
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+/* Improved reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
