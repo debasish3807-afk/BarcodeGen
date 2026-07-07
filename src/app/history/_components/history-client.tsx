@@ -2,21 +2,45 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Search, Trash2, Download, ScanBarcode, QrCode } from "lucide-react";
+import { Clock, Search, Trash2, Download, ScanBarcode, QrCode, Cloud, LogIn } from "lucide-react";
+import Link from "next/link";
 import { getHistory, removeFromHistory, clearHistory, exportHistory, type HistoryItem } from "../_lib/history-storage";
+import { useAuth } from "@/hooks/useAuth";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 type FilterType = "all" | "barcode" | "qr";
 
 export function HistoryClient() {
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
 
-  useEffect(() => { setHistory(getHistory()); }, []);
+  useEffect(() => {
+    if (isAuthenticated) setHistory(getHistory());
+  }, [isAuthenticated]);
 
   const refresh = () => setHistory(getHistory());
+
+  // Guest state - show sign-in prompt
+  if (!authLoading && !isAuthenticated) {
+    return (
+      <Container>
+        <div className="text-center py-20 max-w-md mx-auto">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-primary-50 dark:bg-primary-950/40 flex items-center justify-center mb-4">
+            <Cloud className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+          </div>
+          <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2">Sign in to access History</h3>
+          <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">Create a free account to save your barcode generation history across all your devices.</p>
+          <Link href="/sign-in?next=/history" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-accent-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-primary-600/25 transition-all">
+            <LogIn className="h-4 w-4" />Sign In to Continue
+          </Link>
+          <p className="text-xs text-surface-400 mt-4">Guests can still generate and download barcodes — no sign-in required.</p>
+        </div>
+      </Container>
+    );
+  }
   const handleDelete = (id: string) => { removeFromHistory(id); refresh(); };
   const handleClearAll = () => { if (confirm("Clear all history?")) { clearHistory(); refresh(); } };
   const handleExport = () => {
