@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 // ======================
-// Footer Component
+// Footer Component - Premium Dark Gradient
 // ======================
 
 const socialIconMap: Record<string, React.ElementType> = {
@@ -23,7 +23,7 @@ export function Footer() {
 
   return (
     <footer
-      className="bg-surface-50/50 dark:bg-surface-900/50 border-t border-surface-200/60 dark:border-surface-800/40"
+      className="bg-gradient-to-b from-surface-900 to-surface-950 border-t border-surface-800/40"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -35,31 +35,31 @@ export function Footer() {
             <div className="lg:col-span-2">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 font-bold text-xl text-surface-900 dark:text-white mb-4"
+                className="inline-flex items-center gap-2 font-bold text-xl text-white mb-4"
                 aria-label={`${SITE_CONFIG.name} - Home`}
               >
-                <ScanBarcode className="h-7 w-7 text-primary-600" />
+                <ScanBarcode className="h-7 w-7 text-primary-400" />
                 {SITE_CONFIG.name}
               </Link>
-              <p className="text-surface-600 dark:text-surface-400 text-sm leading-relaxed max-w-sm mb-6">
+              <p className="text-surface-400 text-sm leading-relaxed max-w-sm mb-6">
                 The most powerful free barcode and QR code generator. Create professional barcodes in 30+ formats with high-resolution downloads.
               </p>
 
               {/* Newsletter */}
               <div className="space-y-3">
-                <p className="text-sm font-semibold text-surface-900 dark:text-white">
+                <p className="text-sm font-semibold text-white">
                   Stay Updated
                 </p>
                 <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 px-4 py-2 rounded-lg border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="flex-1 px-4 py-2 rounded-lg border border-surface-700 bg-surface-800/80 text-surface-100 placeholder:text-surface-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                     aria-label="Email for newsletter"
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
+                    className="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-500 transition-colors"
                     aria-label="Subscribe to newsletter"
                   >
                     <Mail className="h-4 w-4" />
@@ -71,7 +71,7 @@ export function Footer() {
             {/* Link Columns */}
             {FOOTER_SECTIONS.map((section) => (
               <div key={section.title}>
-                <h3 className="text-sm font-bold text-surface-900 dark:text-white uppercase tracking-wider mb-4">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
                   {section.title}
                 </h3>
                 <ul className="space-y-2.5" role="list">
@@ -79,7 +79,7 @@ export function Footer() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-surface-600 hover:text-primary-600 dark:text-surface-400 dark:hover:text-primary-400 transition-colors"
+                        className="text-sm text-surface-400 hover:text-primary-400 transition-colors"
                         {...(link.isExternal && {
                           target: "_blank",
                           rel: "noopener noreferrer",
@@ -97,11 +97,11 @@ export function Footer() {
       </Container>
 
       {/* Bottom Bar */}
-      <div className="border-t border-surface-200 dark:border-surface-800">
+      <div className="border-t border-surface-800/60">
         <Container>
           <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Copyright */}
-            <p className="text-sm text-surface-500 dark:text-surface-400 text-center sm:text-left">
+            <p className="text-sm text-surface-400 text-center sm:text-left">
               &copy; {currentYear} {SITE_CONFIG.name}. All rights reserved. Made with{" "}
               <Heart className="inline h-3.5 w-3.5 text-red-500 fill-red-500" aria-label="love" />{" "}
               for developers worldwide.
@@ -118,9 +118,8 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cn(
-                      "p-2 rounded-lg text-surface-500 transition-colors",
-                      "hover:text-primary-600 hover:bg-surface-100",
-                      "dark:text-surface-400 dark:hover:text-primary-400 dark:hover:bg-surface-800"
+                      "p-2 rounded-lg text-surface-400 transition-colors",
+                      "hover:text-primary-400 hover:bg-surface-800"
                     )}
                     aria-label={`Follow us on ${social.platform}`}
                   >

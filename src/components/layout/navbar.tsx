@@ -84,13 +84,13 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-white/70 dark:bg-surface-950/70 backdrop-blur-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_24px_rgba(0,0,0,0.02)] border-b border-surface-200/30 dark:border-surface-800/30"
+          ? "bg-white/70 dark:bg-surface-950/70 backdrop-blur-2xl shadow-[0_1px_2px_rgba(0,0,0,0.03)] border-b border-surface-200/30 dark:border-surface-800/30"
           : "bg-transparent"
       )}
     >
       <Container>
         <nav
-          className="flex items-center justify-between h-20"
+          className="flex items-center justify-between h-16 md:h-20"
           aria-label="Main navigation"
         >
           {/* Logo */}

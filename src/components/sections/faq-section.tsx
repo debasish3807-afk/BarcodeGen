@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // ======================
-// FAQ - Premium Animated Accordion
+// FAQ - Premium Accordion with Gradient Active States
 // ======================
 
 function FAQItem({ question, answer, isOpen, onToggle }: {
@@ -24,7 +24,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
     <div className={cn(
       "rounded-2xl border transition-all duration-300",
       isOpen
-        ? "border-primary-200/60 dark:border-primary-800/40 bg-primary-50/30 dark:bg-primary-950/20 shadow-sm"
+        ? "border-primary-200/60 dark:border-primary-800/40 bg-gradient-to-r from-primary-50/50 via-secondary-50/30 to-accent-50/20 dark:from-primary-950/30 dark:via-secondary-950/20 dark:to-accent-950/10 shadow-sm shadow-primary-500/5"
         : "border-surface-200/70 dark:border-surface-700/50 bg-white dark:bg-surface-900/60 hover:border-surface-300 dark:hover:border-surface-600"
     )}>
       <button
@@ -37,9 +37,9 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
         </span>
         <div className={cn(
           "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300",
-          isOpen ? "bg-primary-100 dark:bg-primary-900/50 rotate-180" : "bg-surface-100 dark:bg-surface-800"
+          isOpen ? "bg-gradient-to-br from-primary-500 to-secondary-500 rotate-180" : "bg-surface-100 dark:bg-surface-800"
         )}>
-          <ChevronDown className={cn("h-4 w-4 transition-colors", isOpen ? "text-primary-600 dark:text-primary-400" : "text-surface-400")} />
+          <ChevronDown className={cn("h-4 w-4 transition-colors", isOpen ? "text-white" : "text-surface-400")} />
         </div>
       </button>
       <AnimatePresence>

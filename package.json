@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/manrope": "^5.2.8",
     "@next/third-parties": "^16.2.10",
     "@prisma/client": "^5.22.0",
     "@vercel/analytics": "^2.0.1",
