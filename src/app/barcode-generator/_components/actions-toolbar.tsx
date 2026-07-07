@@ -7,7 +7,6 @@ import {
   Copy,
   Printer,
   RotateCcw,
-  Sparkles,
   Check,
   FileImage,
   FileCode,
@@ -34,6 +33,7 @@ export function ActionsToolbar({
   onGenerate,
   onReset,
 }: ActionsToolbarProps) {
+  void onGenerate; // Preserved for API compatibility
   const [copyImageState, setCopyImageState] = useState<CopyState>("idle");
   const [copySvgState, setCopySvgState] = useState<CopyState>("idle");
   const [isExporting, setIsExporting] = useState(false);
@@ -262,41 +262,64 @@ export function ActionsToolbar({
   };
 
   return (
-    <div className="space-y-4">
-      {/* Primary Actions */}
-      <div className="flex gap-2">
-        <button
-          onClick={onGenerate}
-          disabled={!validation.valid || !options.value}
-          className={cn(
-            "flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200",
-            "focus:outline-none focus:ring-2 focus:ring-primary-500/20",
-            validation.valid && options.value
-              ? "bg-primary-600 text-white hover:bg-primary-700 shadow-sm shadow-primary-600/20"
-              : "bg-surface-200 dark:bg-surface-700 text-surface-400 dark:text-surface-500 cursor-not-allowed"
-          )}
-          aria-label="Generate barcode"
-        >
-          <Sparkles className="h-4 w-4" />
-          Generate
-        </button>
-        <button
-          onClick={onReset}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold border-2 border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-          aria-label="Reset all options"
-        >
-          <RotateCcw className="h-4 w-4" />
-          Reset
-        </button>
+    <div className="space-y-5">
+      {/* Primary Download Button */}
+      <button
+        onClick={handleDownloadPNG}
+        disabled={!canExport || isExporting}
+        className={cn(
+          "w-full flex items-center justify-center gap-2.5 px-5 py-4 rounded-2xl text-sm font-bold transition-all duration-300",
+          "focus:outline-none focus:ring-4 focus:ring-primary-500/20",
+          canExport && !isExporting
+            ? "bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5 active:translate-y-0"
+            : "bg-surface-200 dark:bg-surface-700 text-surface-400 dark:text-surface-500 cursor-not-allowed"
+        )}
+        aria-label="Download barcode as PNG"
+      >
+        <Download className="h-5 w-5" />
+        {isExporting ? "Exporting..." : "Download Barcode"}
+      </button>
+
+      {/* Export Format Cards */}
+      <div>
+        <p className="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider mb-3">
+          Export Formats
+        </p>
+        <div className="grid grid-cols-5 gap-2">
+          {[
+            { label: "PNG", desc: "Raster", icon: FileImage, handler: handleDownloadPNG },
+            { label: "SVG", desc: "Vector", icon: FileCode, handler: handleDownloadSVG },
+            { label: "PDF", desc: "Print", icon: FileText, handler: handleDownloadPDF },
+            { label: "JPG", desc: "Photo", icon: Image, handler: handleDownloadJPG },
+            { label: "WebP", desc: "Web", icon: Image, handler: handleDownloadWebP },
+          ].map(({ label, desc, icon: Icon, handler }) => (
+            <button
+              key={label}
+              onClick={handler}
+              disabled={!canExport || isExporting}
+              className={cn(
+                "group flex flex-col items-center gap-1.5 p-3 rounded-xl text-center transition-all duration-200 border",
+                canExport && !isExporting
+                  ? "border-surface-200/80 dark:border-surface-700/60 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-primary-50/50 dark:hover:bg-primary-950/30 hover:-translate-y-0.5 hover:shadow-md"
+                  : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed opacity-60"
+              )}
+              aria-label={`Download as ${label}`}
+            >
+              <Icon className={cn("h-4 w-4 transition-colors", canExport ? "text-surface-500 group-hover:text-primary-600 dark:group-hover:text-primary-400" : "")} />
+              <span className="text-xs font-bold text-surface-700 dark:text-surface-300">{label}</span>
+              <span className="text-[10px] text-surface-400 dark:text-surface-500">{desc}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Copy Actions */}
-      <div className="flex gap-2">
+      {/* Secondary Actions */}
+      <div className="grid grid-cols-2 gap-2">
         <button
           onClick={handleCopyImage}
           disabled={!canExport}
           className={cn(
-            "flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
+            "flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
             canExport
               ? "border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800"
               : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed"
@@ -305,13 +328,9 @@ export function ActionsToolbar({
         >
           <AnimatePresence mode="wait">
             {copyImageState === "copied" ? (
-              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5 text-green-600">
-                <Check className="h-3.5 w-3.5" /> Copied!
-              </motion.span>
+              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5 text-green-600"><Check className="h-3.5 w-3.5" />Copied!</motion.span>
             ) : (
-              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5">
-                <Copy className="h-3.5 w-3.5" /> Copy Image
-              </motion.span>
+              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5"><Copy className="h-3.5 w-3.5" />Copy Image</motion.span>
             )}
           </AnimatePresence>
         </button>
@@ -319,7 +338,7 @@ export function ActionsToolbar({
           onClick={handleCopySvg}
           disabled={!canExport}
           className={cn(
-            "flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
+            "flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
             canExport
               ? "border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800"
               : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed"
@@ -328,66 +347,33 @@ export function ActionsToolbar({
         >
           <AnimatePresence mode="wait">
             {copySvgState === "copied" ? (
-              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5 text-green-600">
-                <Check className="h-3.5 w-3.5" /> Copied!
-              </motion.span>
+              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5 text-green-600"><Check className="h-3.5 w-3.5" />Copied!</motion.span>
             ) : (
-              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5">
-                <FileCode className="h-3.5 w-3.5" /> Copy SVG
-              </motion.span>
+              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5"><FileCode className="h-3.5 w-3.5" />Copy SVG</motion.span>
             )}
           </AnimatePresence>
         </button>
+        <button
+          onClick={handlePrint}
+          disabled={!canExport}
+          className={cn(
+            "flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
+            canExport
+              ? "border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800"
+              : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed"
+          )}
+          aria-label="Print barcode"
+        >
+          <Printer className="h-3.5 w-3.5" />Print
+        </button>
+        <button
+          onClick={onReset}
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold border border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors"
+          aria-label="Reset all options"
+        >
+          <RotateCcw className="h-3.5 w-3.5" />Reset
+        </button>
       </div>
-
-      {/* Download Actions */}
-      <div>
-        <p className="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider mb-2">
-          <Download className="h-3 w-3 inline mr-1" />
-          Download
-        </p>
-        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-          {[
-            { label: "PNG", icon: FileImage, handler: handleDownloadPNG },
-            { label: "SVG", icon: FileCode, handler: handleDownloadSVG },
-            { label: "PDF", icon: FileText, handler: handleDownloadPDF },
-            { label: "JPG", icon: Image, handler: handleDownloadJPG },
-            { label: "WebP", icon: Image, handler: handleDownloadWebP },
-          ].map(({ label, icon: Icon, handler }) => (
-            <button
-              key={label}
-              onClick={handler}
-              disabled={!canExport || isExporting}
-              className={cn(
-                "flex flex-col items-center gap-1 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
-                canExport && !isExporting
-                  ? "border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:border-primary-200 dark:hover:border-primary-800 hover:text-primary-700 dark:hover:text-primary-300"
-                  : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed"
-              )}
-              aria-label={`Download as ${label}`}
-            >
-              <Icon className="h-4 w-4" />
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Print */}
-      <button
-        onClick={handlePrint}
-        disabled={!canExport}
-        className={cn(
-          "w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border",
-          canExport
-            ? "border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800"
-            : "border-surface-100 dark:border-surface-800 text-surface-400 dark:text-surface-600 cursor-not-allowed"
-        )}
-        aria-label="Print barcode"
-      >
-        <Printer className="h-4 w-4" />
-        Print Barcode
-      </button>
     </div>
   );
 }
