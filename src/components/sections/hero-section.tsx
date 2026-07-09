@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { useTranslation } from "@/lib/i18n";
 
 
 // ======================
@@ -237,6 +238,7 @@ function FloatingBadges() {
 // ======================
 
 function CompanyLogos() {
+  const { t } = useTranslation();
   const companies = [
     "Shopify", "Amazon", "DHL", "FedEx", "Walmart", "Alibaba"
   ];
@@ -249,7 +251,7 @@ function CompanyLogos() {
       className="mt-16 md:mt-20"
     >
       <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-surface-400 dark:text-surface-500 mb-6">
-        Trusted by teams at
+        {t.hero.trustedBy}
       </p>
       <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-12 gap-y-4">
         {companies.map((company, i) => (
@@ -274,6 +276,7 @@ function CompanyLogos() {
 // ======================
 
 function RatingBadge() {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -299,7 +302,7 @@ function RatingBadge() {
         ))}
       </div>
       <span className="text-xs font-semibold text-surface-600 dark:text-surface-300">
-        4.9/5 from 2,000+ reviews
+        {t.hero.rating}
       </span>
     </motion.div>
   );
@@ -310,6 +313,7 @@ function RatingBadge() {
 // ======================
 
 export function HeroSection() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -357,7 +361,7 @@ export function HeroSection() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-600" />
                 </span>
-                Free & Professional — No Signup Required
+                {t.hero.badge}
                 <ArrowRight className="h-3.5 w-3.5 opacity-70" />
               </span>
             </motion.div>
@@ -369,11 +373,11 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="text-[2.5rem] leading-[1.08] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-extrabold tracking-[-0.04em] text-surface-900 dark:text-white text-balance"
             >
-              Generate Professional{" "}
-              <span className="gradient-text-vibrant">Barcodes</span>{" "}
+              {t.hero.title1}{" "}
+              <span className="gradient-text-vibrant">{t.hero.titleHighlight1}</span>{" "}
               <br className="hidden md:block" />
-              &{" "}
-              <span className="gradient-text-vibrant">QR Codes</span>
+              {t.hero.titleAnd}{" "}
+              <span className="gradient-text-vibrant">{t.hero.titleHighlight2}</span>
             </motion.h1>
 
 
@@ -384,8 +388,7 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 md:mt-8 text-lg sm:text-xl md:text-2xl text-surface-500 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed font-medium"
             >
-              The most powerful barcode platform. 30+ formats, instant generation,
-              production-ready downloads. Trusted by 500K+ users worldwide.
+              {t.hero.subtitle}
             </motion.p>
 
             {/* Premium CTAs */}
@@ -401,7 +404,7 @@ export function HeroSection() {
                   className="rounded-full px-10 py-5 text-base md:text-lg shadow-[0_8px_32px_-4px_rgba(37,99,235,0.4)] hover:shadow-[0_16px_48px_-4px_rgba(37,99,235,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-500 hover:from-primary-500 hover:via-secondary-500 hover:to-primary-600 btn-ripple"
                   rightIcon={<ArrowRight className="h-5 w-5" />}
                 >
-                  Start Generating
+                  {t.hero.cta1}
                 </Button>
               </Link>
               <Link href="/qr-generator">
@@ -411,7 +414,7 @@ export function HeroSection() {
                   className="rounded-full px-10 py-5 text-base md:text-lg border-2 border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-primary-50/50 dark:hover:bg-primary-950/30 hover:shadow-[0_8px_32px_-8px_rgba(37,99,235,0.2)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                   rightIcon={<ArrowRight className="h-5 w-5" />}
                 >
-                  Create QR Code
+                  {t.hero.cta2}
                 </Button>
               </Link>
             </motion.div>
@@ -424,11 +427,11 @@ export function HeroSection() {
               className="mt-10 md:mt-12 flex flex-wrap items-center justify-center gap-x-6 md:gap-x-8 gap-y-3 text-sm md:text-[15px] text-surface-500 dark:text-surface-400 font-medium"
             >
               {[
-                { icon: Check, text: "No registration" },
-                { icon: Zap, text: "Instant generation" },
-                { icon: Shield, text: "Privacy first" },
-                { icon: Download, text: "High-res export" },
-                { icon: Globe, text: "190+ countries" },
+                { icon: Check, text: t.hero.trust1 },
+                { icon: Zap, text: t.hero.trust2 },
+                { icon: Shield, text: t.hero.trust3 },
+                { icon: Download, text: t.hero.trust4 },
+                { icon: Globe, text: t.hero.trust5 },
               ].map(({ icon: Icon, text }) => (
                 <span key={text} className="flex items-center gap-2">
                   <span className="flex items-center justify-center w-5 h-5 rounded-full bg-accent-100 dark:bg-accent-900/40">
