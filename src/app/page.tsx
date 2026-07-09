@@ -6,9 +6,12 @@ import {
   BarcodeTypesSection,
   QRTypesSection,
   HowItWorksSection,
+  InteractiveDemoSection,
+  ComparisonSection,
   TestimonialsSection,
   BlogSection,
   FAQSection,
+  NewsletterSection,
   CTASection,
 } from "@/components/sections";
 import { WebsiteSchema, FAQSchema } from "@/components/seo/schema-org";
@@ -27,13 +30,16 @@ export default function HomePage() {
       <HeroSection />
       <StatsSection />
       <FeaturesSection />
+      <InteractiveDemoSection />
       <WhyChooseSection />
       <BarcodeTypesSection />
       <QRTypesSection />
       <HowItWorksSection />
+      <ComparisonSection />
       <TestimonialsSection />
       <BlogSection />
       <FAQSection />
+      <NewsletterSection />
       <CTASection />
     </>
   );
