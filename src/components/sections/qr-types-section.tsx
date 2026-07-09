@@ -11,8 +11,9 @@ import { useTranslation } from "@/lib/i18n";
 import { Container } from "@/components/ui/container";
 import { Section, SectionHeader } from "@/components/ui/section";
 
+
 // ======================
-// QR Types Section (i18n)
+// QR Types Section - Premium v5.0
 // ======================
 
 const qrIconMap: Record<string, React.ElementType> = {
@@ -20,9 +21,6 @@ const qrIconMap: Record<string, React.ElementType> = {
   mail: Mail, phone: Phone, messageSquare: MessageSquare,
   mapPin: MapPin, calendar: Calendar, smartphone: Smartphone,
 };
-
-const QR_ICONS = ["link","type","wifi","contact","mail",
-  "phone","messageSquare","mapPin","calendar","smartphone"];
 
 const qrGradients = [
   "from-primary-500 to-primary-600",
@@ -36,7 +34,6 @@ const qrGradients = [
   "from-accent-600 to-secondary-500",
   "from-primary-500 to-secondary-600",
 ];
-
 
 export function QRTypesSection() {
   const { t } = useTranslation();
@@ -56,29 +53,56 @@ export function QRTypesSection() {
 
   return (
     <Section variant="default" spacing="xl" className="relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
+      {/* Background effects */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
       <Container size="xl" className="relative">
-        <SectionHeader badge={t.qrTypes.badge} title={t.qrTypes.title} subtitle={t.qrTypes.subtitle} />
+        <SectionHeader
+          badge={t.qrTypes.badge}
+          title={t.qrTypes.title}
+          subtitle={t.qrTypes.subtitle}
+        />
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5">
           {qrTypes.map((qrType, index) => {
             const Icon = qrIconMap[qrType.icon] || LinkIcon;
             return (
-              <motion.div key={index} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: index * 0.04 }}>
-                <Link href="/qr-generator" className="group block h-full p-5 rounded-xl bg-white dark:bg-surface-800/40 border border-surface-200/60 dark:border-surface-700/30 hover:border-accent-200 dark:hover:border-accent-800/50 hover:shadow-lg hover:shadow-accent-500/[0.06] hover:-translate-y-1 transition-all duration-300 text-center">
-                  <div className={`w-11 h-11 mx-auto rounded-xl bg-gradient-to-br ${qrGradients[index % qrGradients.length]} flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
-                    <Icon className="h-5 w-5 text-white" />
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+                whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  href="/qr-generator"
+                  className="group block h-full p-5 rounded-2xl bg-white dark:bg-surface-800/40 border border-surface-200/60 dark:border-surface-700/30 hover:border-accent-200/70 dark:hover:border-accent-800/50 hover:shadow-xl hover:shadow-accent-500/[0.06] hover:-translate-y-1.5 transition-all duration-400 text-center"
+                >
+                  <div className={`w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br ${qrGradients[index % qrGradients.length]} flex items-center justify-center mb-3.5 shadow-lg shadow-black/5 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-primary-500/10 transition-all duration-400`}>
+                    <Icon className="h-5 w-5 text-white" strokeWidth={1.8} />
                   </div>
-                  <h3 className="text-sm font-bold text-surface-900 dark:text-white">{qrType.name}</h3>
-                  <p className="text-[11px] text-surface-500 dark:text-surface-400 mt-1 leading-relaxed">{qrType.desc}</p>
+                  <h3 className="text-sm font-bold text-surface-900 dark:text-white tracking-tight">{qrType.name}</h3>
+                  <p className="text-[11px] text-surface-500 dark:text-surface-400 mt-1.5 leading-relaxed">{qrType.desc}</p>
                 </Link>
               </motion.div>
             );
           })}
         </div>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mt-10">
-          <Link href="/qr-generator" className="inline-flex items-center gap-2 text-sm font-semibold text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors group">
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/qr-generator"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 bg-accent-50/60 dark:bg-accent-950/30 hover:bg-accent-50 dark:hover:bg-accent-950/50 rounded-2xl border border-accent-200/50 dark:border-accent-800/30 transition-all duration-300 group"
+          >
             {t.qrTypes.createNow}
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
         </motion.div>
       </Container>

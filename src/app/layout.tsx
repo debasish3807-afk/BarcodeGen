@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { HreflangTags } from "@/components/seo/hreflang-tags";
 import { SITE_CONFIG, SEO_DEFAULTS } from "@/constants/site";
 import "@/styles/globals.css";
@@ -180,6 +181,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <ScrollToTop />
         </Providers>
         <Analytics />
         <GoogleAnalytics gaId="G-C9XC0D7F1Q" />
