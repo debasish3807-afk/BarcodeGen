@@ -2,20 +2,22 @@ import { type HTMLAttributes, type ReactNode, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 // ======================
-// Card Component
+// Card Component - Premium v2.0
 // ======================
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "elevated" | "bordered" | "glass";
+  variant?: "default" | "elevated" | "bordered" | "glass" | "gradient";
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
+  glow?: boolean;
 }
 
 const variantClasses = {
-  default: "bg-white dark:bg-surface-900 shadow-sm border border-surface-200 dark:border-surface-800",
-  elevated: "bg-white dark:bg-surface-900 shadow-lg shadow-surface-200/50 dark:shadow-surface-900/50",
-  bordered: "bg-white dark:bg-surface-900 border-2 border-surface-200 dark:border-surface-700",
-  glass: "glass",
+  default: "bg-white dark:bg-surface-900/60 border border-surface-200/60 dark:border-surface-700/30",
+  elevated: "bg-white dark:bg-surface-900/60 shadow-xl shadow-surface-200/40 dark:shadow-surface-900/40 border border-surface-200/40 dark:border-surface-700/20",
+  bordered: "bg-white dark:bg-surface-900/60 border-2 border-surface-200 dark:border-surface-700",
+  glass: "bg-white/60 dark:bg-surface-800/40 backdrop-blur-2xl border border-surface-200/50 dark:border-surface-700/30",
+  gradient: "bg-gradient-to-br from-white to-surface-50 dark:from-surface-900 dark:to-surface-800 border border-surface-200/60 dark:border-surface-700/30",
 };
 
 const paddingClasses = {
@@ -26,7 +28,7 @@ const paddingClasses = {
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "default", padding = "md", hover = false, children, ...props }, ref) => {
+  ({ className, variant = "default", padding = "md", hover = false, glow = false, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -34,7 +36,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           "rounded-2xl transition-all duration-300",
           variantClasses[variant],
           paddingClasses[padding],
-          hover && "hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:border-primary-200/80 dark:hover:border-primary-700/60",
+          hover && "hover:shadow-xl hover:shadow-primary-500/[0.05] hover:-translate-y-1 hover:border-primary-200/60 dark:hover:border-primary-800/40",
+          glow && "hover:shadow-[0_0_40px_-10px_rgba(37,99,235,0.15)]",
           className
         )}
         {...props}
@@ -46,6 +49,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 );
 
 Card.displayName = "Card";
+
 
 // ======================
 // Card Header
