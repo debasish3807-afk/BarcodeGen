@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 
 // ======================
-// Navbar Component - Premium v4.0 (i18n)
+// Navbar Component - Premium v5.0 (i18n)
 // ======================
 
 export function Navbar() {
@@ -109,7 +109,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-white/80 dark:bg-surface-950/80 backdrop-blur-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] border-b border-surface-200/40 dark:border-surface-800/40"
+          ? "bg-white/75 dark:bg-surface-950/75 backdrop-blur-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.03)] border-b border-surface-200/50 dark:border-surface-800/50"
           : "bg-transparent"
       )}
     >
@@ -119,7 +119,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group relative" aria-label={`${SITE_CONFIG.name} - ${t.nav.home}`}>
             <div className="relative">
               <div className="absolute inset-0 bg-primary-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-600/20 group-hover:shadow-primary-600/40 transition-all duration-300 group-hover:scale-105">
+              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-600/20 group-hover:shadow-primary-600/40 group-hover:scale-105 transition-all duration-300">
                 <ScanBarcode className="h-5 w-5 text-white" />
               </div>
             </div>
@@ -184,7 +184,7 @@ export function Navbar() {
                         className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[680px] max-w-[calc(100vw-2rem)]"
                         onMouseLeave={() => setIsMegaOpen(false)}
                       >
-                        <div className="bg-white/95 dark:bg-surface-900/95 backdrop-blur-2xl rounded-2xl border border-surface-200/60 dark:border-surface-700/50 shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-12px_rgba(0,0,0,0.4)] p-3">
+                        <div className="bg-white/95 dark:bg-surface-900/95 backdrop-blur-2xl rounded-3xl border border-surface-200/60 dark:border-surface-700/50 shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-12px_rgba(0,0,0,0.4)] p-3">
                           <div className="grid grid-cols-2 gap-1">
                             {TOOLS_MENU.map((tool) => {
                               const Icon = tool.icon;
@@ -283,9 +283,9 @@ export function Navbar() {
             <div className="hidden lg:block w-px h-6 bg-surface-200 dark:bg-surface-700 mx-1.5" />
 
             {/* Sign In CTA */}
-            <Link href="/sign-in" className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-primary-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+            <Link href="/sign-in" className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-primary-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 group">
               <span>{t.nav.getStarted}</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
             {/* Mobile Menu Toggle */}
