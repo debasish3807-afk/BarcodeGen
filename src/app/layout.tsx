@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { HreflangTags } from "@/components/seo/hreflang-tags";
 import { SITE_CONFIG, SEO_DEFAULTS } from "@/constants/site";
 import "@/styles/globals.css";
 
@@ -86,6 +87,18 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_CONFIG.url,
+    languages: {
+      "en": `${SITE_CONFIG.url}/en`,
+      "de": `${SITE_CONFIG.url}/de`,
+      "fr": `${SITE_CONFIG.url}/fr`,
+      "es": `${SITE_CONFIG.url}/es`,
+      "hi": `${SITE_CONFIG.url}/hi`,
+      "bn": `${SITE_CONFIG.url}/bn`,
+      "ar": `${SITE_CONFIG.url}/ar`,
+      "ja": `${SITE_CONFIG.url}/ja`,
+      "zh": `${SITE_CONFIG.url}/zh`,
+      "x-default": SITE_CONFIG.url,
+    },
   },
   icons: {
     icon: [
@@ -155,6 +168,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased min-h-screen flex flex-col">
         <Providers>
+          <HreflangTags />
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg"
