@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Key, BarChart3, Terminal, Package, Activity, Shield, Copy, Check, RefreshCw, Eye, EyeOff, Trash2, Plus } from "lucide-react";
-import { SDK_LANGUAGES } from "@/lib/billing/sdk-data";
+import { SDK_LANGUAGES } from "@/lib/developer/sdk-data";
 import { Container } from "@/components/ui/container";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";

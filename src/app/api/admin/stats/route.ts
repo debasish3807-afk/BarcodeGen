@@ -22,8 +22,6 @@ export async function GET(req: NextRequest) {
     totalQRCodes: 856234,
     totalBatchJobs: 3421,
     totalApiRequests: 4521890,
-    revenue: 45280.50,
-    activeSubscriptions: 234,
     newUsersToday: 45,
     barcodesGeneratedToday: 8923,
     qrCodesGeneratedToday: 6234,
