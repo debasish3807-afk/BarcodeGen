@@ -17,7 +17,6 @@
 - **Multi-Language** — 20 locales with RTL support
 - **Developer API** — REST API with SDKs for 9 languages
 - **Admin Dashboard** — Full management panel
-- **Enterprise Billing** — 5 plans, 6 payment gateways
 
 ## Quick Start
 

@@ -72,18 +72,6 @@ POST /v1/api-keys
 }
 ```
 
-### Billing
-
-#### Subscribe
-```
-POST /v1/billing
-{
-  "planId": "professional",
-  "billing": "monthly",
-  "gateway": "stripe"
-}
-```
-
 ### Contact
 ```
 POST /v1/contact

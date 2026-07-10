@@ -13,11 +13,9 @@
 - **AI Generator** - Pattern-matching engine, 17 patterns, instant field preparation
 - **Blog** - 10 articles, 9 categories, search, related posts, share buttons
 - **Multi-Language** - 20 locales with i18n architecture and RTL support
-- **Pricing** - 5 subscription plans with monthly/yearly toggle
 - **Developer Console** - API keys, usage analytics, playground, 9 SDKs, logs, webhooks
-- **Admin Dashboard** - Users, analytics, blog, templates, settings, billing management
-- **Enterprise Backend** - Prisma (20 tables), REST API (10 endpoints), JWT, RBAC, Redis
-- **Billing System** - Stripe/Razorpay/PayPal/UPI/Apple Pay/Google Pay, coupons, invoices
+- **Admin Dashboard** - Users, analytics, blog, templates, settings management
+- **Enterprise Backend** - Prisma (18 tables), REST API (10 endpoints), JWT, RBAC, Redis
 - **DevOps** - Docker, Docker Compose, Nginx, CI/CD, Prometheus, Grafana
 - **Email** - SMTP/SendGrid/Resend with 5 HTML templates
 - **Storage** - AWS S3/Cloudinary/Backblaze/Local abstraction

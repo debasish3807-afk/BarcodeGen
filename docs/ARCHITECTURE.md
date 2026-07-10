@@ -65,7 +65,7 @@ barcodegen/
 │   ├── lib/                   # Core libraries
 │   │   ├── api/               # Response helpers, validation, rate limiting
 │   │   ├── auth/              # JWT, RBAC
-│   │   ├── billing/           # Plans, coupons, SDKs
+│   │   ├── developer/         # SDK code examples
 │   │   ├── cache/             # Redis client
 │   │   ├── db/                # Prisma client
 │   │   ├── email/             # Multi-provider email
