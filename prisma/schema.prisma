@@ -34,7 +34,6 @@ model User {
   favorites     Favorite[]
   history       History[]
   apiKeys       ApiKey[]
-  payments      Payment[]
   activityLogs  ActivityLog[]
 
   @@index([email])
@@ -270,7 +269,7 @@ model NewsletterSubscriber {
   @@index([isActive])
 }
 
-// === API & Payments ===
+// === API ===
 
 model ApiKey {
   id        String   @id @default(cuid())
@@ -288,39 +287,6 @@ model ApiKey {
 
   @@index([key])
   @@index([userId])
-}
-
-model Payment {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  amount      Float
-  currency    String   @default("USD")
-  status      String   @default("pending")
-  provider    String
-  providerId  String?
-  plan        String?
-  createdAt   DateTime @default(now())
-  invoice     Invoice?
-
-  @@index([userId])
-  @@index([status])
-}
-
-model Invoice {
-  id        String   @id @default(cuid())
-  paymentId String   @unique
-  payment   Payment  @relation(fields: [paymentId], references: [id])
-  number    String   @unique
-  amount    Float
-  tax       Float    @default(0)
-  total     Float
-  status    String   @default("draft")
-  issuedAt  DateTime @default(now())
-  dueAt     DateTime?
-  paidAt    DateTime?
-
-  @@index([number])
 }
 
 // === System ===

@@ -16,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/favorites",
     "/history",
     "/ai-generator",
-    "/pricing",
     "/developer",
     "/status",
     "/guides/ean",
